@@ -33,23 +33,21 @@ class Program
             }
         }
 
-        // Поиск объектов в массиве по введенному значению
-        Console.Write("Введите наименование программного обеспечения: ");
-        var searchName = Console.ReadLine();
-        var result = softwareList.Where(x => x.Name == searchName).ToList();
-
-        // Вывод результатов поиска
-        if (result.Count > 0)
+        List<Software> list = softwareList;
+        // сортировка по цене
+        list = list.OrderBy(x => x, new SoftwarePriceComparer()).ToList();
+        Console.WriteLine("Sorting by price:");
+        foreach (var soft in list)
         {
-            Console.WriteLine("Результаты поиска:");
-            foreach (var software in result)
-            {
-                Console.WriteLine($"{software.Name}, {software.Type}, {software.Size} МБ, {software.Price} руб.");
-            }
+            Console.WriteLine($"neme: {soft.Name}, price: {soft.Price}");
         }
-        else
+
+        // сортировка по размеру
+        softwareList.Sort();
+        Console.WriteLine("Sorting by size:");
+        foreach (var soft in softwareList)
         {
-            Console.WriteLine("Ничего не найдено");
+            Console.WriteLine($"neme: {soft.Name}, size: {soft.Size}");
         }
     }
 }
